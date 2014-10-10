@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang=en-us>
+<head>
+  <meta charset=utf-8>
+  <title>Perpetual counterclockwise card flip</title>
+  <style>
+    html, body { /* Table */
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    div { /* Deck */
+      -webkit-perspective: 800px;
+      perspective: 800px;
+      margin: auto;
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    div ul { /* Card */
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    div ul li { /* Sides */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      color: white;
+      display: block;
+      font-family: sans-serif;
+      height: 100%;
+      width: 100%;
+      line-height: 200px;
+      margin: 0;
+      position: absolute;
+      text-align: center;
+    }
+    ul li:first-child { /* Side A */
+      background: #00AEEF;
+    }
+    ul li:last-child { /* Side B */
+      background: #E20177;
+    }
+    .back {
+      -webkit-transform: rotateY(-180deg);
+      transform: rotateY(-180deg);
+    }
+    .flip {
+      -webkit-animation: flipcard 1s;
+      animation: flipcard 1s;
+    }
+    @-webkit-keyframes flipcard {
+      from {
+        -webkit-transform: rotateY(0deg);
+      } to {
+        -webkit-transform: rotateY(-180deg);
+      }
+    }
+    @keyframes flipcard {
+      from {
+        transform: rotateY(0deg);
+      } to {
+        transform: rotateY(-180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul>
+      <li>side A</li>
+      <li class="back">side B</li>
+    </ul>
+  </div>
+</body>
+  <script>
+    var card=document.getElementsByTagName("ul")[0];
+    var sideA=document.getElementsByTagName("li")[0];
+    var sideB=document.getElementsByTagName("li")[1];
+
+    var timer=setInterval(function() {
+      flip();
+    }, 1500); // Must be greater than animation duration (in seconds)
+
+    function flip() {
+      card.classList.toggle("flip");
+    }
+
+    function toggle() {
+      sideA.classList.toggle("back");
+      sideB.classList.toggle("back");
+    }
+
+    card.addEventListener("webkitAnimationEnd", function() {
+      toggle();
+    }, false);
+
+    card.addEventListener("animationend", function() {
+      toggle();
+    }, false);
+  </script>
+</html>
