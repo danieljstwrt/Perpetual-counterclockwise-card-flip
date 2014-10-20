@@ -8,3 +8,4 @@ The Problem: (todo)
 Solution: (todo)
 
 ## [Demo](https://dl.dropboxusercontent.com/u/22385451/_0/Perpetual-counterclockwise-card-flip.html)
+## [Demo (onclick)](https://dl.dropboxusercontent.com/u/22385451/_0/Perpetual-counterclockwise-card-flip-onclick.html)
