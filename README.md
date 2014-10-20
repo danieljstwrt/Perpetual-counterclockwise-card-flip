@@ -1,7 +1,7 @@
 Perpetual counterclockwise card flip
 ====================================
 
-Method for card flip animation where sides are infinite: Chrome, Firefox and Safari (todo: IE)
+Method for card flip animation where sides are infinite: Chrome, Safari and Firefox (todo: IE)
 
 The Problem: (todo)
 
