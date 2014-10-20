@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang=en-us>
+<head>
+  <meta charset=utf-8>
+  <title>Perpetual counterclockwise card flip</title>
+  <meta name=description content="Method for card flip animation where sides are infinte">
+  <meta name=viewport content="initial-scale=1,user-scalable=no">
+  <style>
+    html, body { /* Table */
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    div { /* Deck */
+      -webkit-perspective: 800px;
+      perspective: 800px;
+      margin: auto;
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    div ul { /* Card */
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      backface-visibility: hidden; /* for Firefox */
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    div ul li { /* Sides */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      color: white;
+      display: block;
+      font-family: sans-serif;
+      height: 100%;
+      width: 100%;
+      line-height: 200px;
+      margin: 0;
+      position: absolute;
+      text-align: center;
+    }
+    ul li:first-child { /* Side A */
+      background: #00AEEF;
+    }
+    ul li:last-child { /* Side B */
+      background: #E20177;
+    }
+    .back {
+      -webkit-transform: rotateY(-180deg);
+      transform: rotateY(-180deg);
+    }
+    .flip {
+      -webkit-animation: flipcard 1s; /* infinite; */
+      animation: flipcard 1s; /* infinite; */
+    }
+    @-webkit-keyframes flipcard {
+      from {
+        -webkit-transform: rotateY(0deg);
+      } to {
+        -webkit-transform: rotateY(-180deg);
+      }
+    }
+    @keyframes flipcard {
+      from {
+        transform: rotateY(0deg);
+      } to {
+        transform: rotateY(-180deg);
+      }
+    }
+  </style>
+</head>
+<body onclick="flip()" ontouchend="flip()">
+  <div>
+    <ul>
+      <li>side A//0</li>
+      <li class="back">side B//1</li>
+    </ul>
+  </div>
+</body>
+  <script>
+    var n=0;
+
+    var card=document.getElementsByTagName("ul")[0];
+    var sideA=document.getElementsByTagName("li")[0];
+    var sideB=document.getElementsByTagName("li")[1];
+
+    function flip() {
+      document.body.removeAttribute("onclick");
+      document.body.removeAttribute("ontouchend");
+      // might try? .removeAttributeNode("attributenode")
+      card.classList.toggle("flip");
+    }
+
+    function toggle() {
+      card.classList.toggle("flip");
+      sideA.classList.toggle("back");
+      sideB.classList.toggle("back");
+      document.body.setAttribute("onclick", "flip()");
+      document.body.setAttribute("ontouchend", "flip()");
+    }
+
+    function oddEven() {
+      n++;
+      if (n % 2 == 0) { // even
+        sideA.innerText = "side A\/\/"+n;
+      }
+      else if (Math.abs(n) % 2 == 1) { // odd
+        sideB.innerText = "side B\/\/"+n;
+      }
+    }
+
+    card.addEventListener("webkitAnimationStart", function() {
+      oddEven();
+    }, false);
+
+    card.addEventListener("webkitAnimationEnd", function() {
+      toggle();
+    }, false);
+
+    card.addEventListener("animationstart", function() {
+      oddEven();
+    }, false);
+
+    card.addEventListener("animationend", function() {
+      toggle();
+    }, false);
+
+  </script>
+</html>
